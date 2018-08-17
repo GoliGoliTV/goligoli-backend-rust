@@ -1,0 +1,10 @@
+cargo-features = ["edition"]
+
+[package]
+name = "goligoli-backend-rust"
+version = "0.1.0"
+authors = ["FourierMeow <41997567+FourierMeow@users.noreply.github.com>"]
+edition = '2018'
+
+[dependencies]
+actix-web = "0.7.3"
