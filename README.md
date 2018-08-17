@@ -40,7 +40,7 @@ By now you have to install nightly channel to enable rust 2018 edition support. 
 
     cargo-features = ["edition"]
 
-### Formater
+### Formatter
 You can run rustfmt with Rust 1.24 and above.
 
 To install:

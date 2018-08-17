@@ -1,7 +1,7 @@
 use actix_web::{server, App, HttpRequest};
 
-mod user;
 mod danmaku;
+mod user;
 mod video;
 
 fn index(_req: &HttpRequest) -> &'static str {
