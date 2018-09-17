@@ -1,10 +1,58 @@
 language: rust
 rust:
-- nightly
-cache: cargo
+  - stable
+  - beta
+  - nightly
+matrix:
+  allow_failures:
+    - rust: stable
+    - rust: beta
+  fast_finish: true
+cache:
+  cargo: true
+  # directories:
+  #   - /var/lib/docker
+
+sudo: required
+
+services:
+  - docker
+
+env:
+  - DOCKER_COMPOSE_VERSION=1.22.0
+
+addons:
+  apt:
+    packages:
+      - binutils-dev
+      - cmake
+      - docker-ce
+      - gcc
+      - libcurl4-openssl-dev
+      - libdw-dev
+      - libelf-dev
+      - libiberty-dev
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - docker --version
+  - docker-compose --version
+  - docker-compose up -d
+  - sleep 30
+  - docker container ls
+  - docker-compose logs
+
 before_script:
-- rustup component add rustfmt-preview
+  - rustup component add rustfmt-preview
+
 script:
-- cargo fmt --all -- --check
-- cargo build
-- cargo test
+  - cargo fmt --all -- --check
+  - cargo build --verbose --all
+  - RUST_LOG=arangors=trace cargo test --verbose --all
+
+notifications:
+  email:
+    on_success: never
