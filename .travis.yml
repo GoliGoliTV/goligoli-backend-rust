@@ -48,7 +48,7 @@ before_install:
 
 before_script:
   - rustup component add rustfmt-preview
-  - cargo install diesel_cli
+  - cargo install diesel_cli --no-default-features --features postgres --force
 
 script:
   - cargo fmt --all -- --check
