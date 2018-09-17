@@ -1,5 +1,8 @@
 # goligoli-backend-rust
 
+[![Build Status](https://travis-ci.org/GoliGoliTV/goligoli-backend-rust.svg?branch=master)](https://travis-ci.org/GoliGoliTV/goligoli-backend-rust)
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+
 Goligoli backend implementation in rust.
 
 ## Why Rust
@@ -41,6 +44,7 @@ By now you have to install nightly channel to enable rust 2018 edition support. 
     cargo-features = ["edition"]
 
 ### Formatter
+
 You can run rustfmt with Rust 1.24 and above.
 
 To install:
