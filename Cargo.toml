@@ -8,7 +8,9 @@ license = "MIT"
 edition = '2018'
 
 [dependencies]
-actix-web = "0.7.7"
+openssl = { version="0.10.12" }
+actix = "0.7"
+actix-web = { version = "0.7.7", features=["alpn"] }
 
 [dev-dependencies]
 pretty_env_logger = "0.2.4"
