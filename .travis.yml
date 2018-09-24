@@ -20,6 +20,7 @@ services:
 
 env:
   - DOCKER_COMPOSE_VERSION=1.22.0
+  - DATABASE_URL=postgres://username:password@localhost/diesel_demo
 
 addons:
   apt:
@@ -32,6 +33,9 @@ addons:
       - libdw-dev
       - libelf-dev
       - libiberty-dev
+      - postgresql 
+      - postgresql-contrib 
+      - libpq-dev
 
 before_install:
   - sudo /etc/init.d/postgresql stop

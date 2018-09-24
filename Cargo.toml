@@ -1,7 +1,5 @@
-cargo-features = ["edition"]
-
 [package]
-name = "goligoli-backend-rust"
+name = "goligoli_backend_rust"
 version = "0.1.0"
 authors = ["FourierMeow <41997567+FourierMeow@users.noreply.github.com>"]
 license = "MIT"
@@ -10,8 +8,14 @@ edition = '2018'
 [dependencies]
 openssl = { version="0.10", features = ["vendored"]}
 actix = "0.7"
-actix-web = { version = "0.7.7", features=["alpn"] }
+actix-web = { version = "^0.7", features=["alpn"] }
+dotenv = "^0.13"
+
+env_logger = "^0.5"
+pretty_env_logger = "^0.2"
+log = "^0.4"
+
+diesel = { version = "1.0.0", features = ["postgres"] }
 
 [dev-dependencies]
-pretty_env_logger = "0.2.4"
 pretty_assertions = "0.5.1"

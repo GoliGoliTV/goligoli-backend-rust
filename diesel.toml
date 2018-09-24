@@ -1,0 +1,7 @@
+# [diesel]
+# table! {
+#     Danmaku (id) {
+#         id -> Integer,
+#         content -> Text,
+#     }
+# }
