@@ -3,8 +3,10 @@ use env_logger::Target;
 use log::trace;
 use openssl::ssl::{SslAcceptor, SslFiletype, SslMethod};
 
-mod route;
+mod controller;
 mod db;
+
+
 
 fn index(_req: &HttpRequest) -> &'static str {
     "Hello world!"
@@ -42,9 +44,9 @@ fn main() {
     server::new(|| {
         App::new()
             .resource("/", |r| r.f(index))
-            .configure(route::user)
-            .configure(route::video)
-            .configure(route::danmaku)
+            .configure(controller::danmaku::danmaku)
+            .configure(controller::video::video)
+            .configure(controller::user::user)
     }).bind_ssl("127.0.0.1:8088", builder)
     .unwrap()
     .run();
