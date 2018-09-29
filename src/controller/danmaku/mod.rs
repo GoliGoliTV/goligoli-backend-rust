@@ -7,10 +7,10 @@ pub fn danmaku(app: App) -> App {
     .scope("/danmaku", |proj_scope| {
         proj_scope.resource("", |r| r.get().f(danmaku::index))
     })
-    .scope("/test", |proj_scope| {
-        proj_scope.resource("", |r| r.f(|_| HttpResponse::Ok()))
+    .scope("/getdanmakubyvideo", |proj_scope| {
+        proj_scope.resource("", |r| r.get().f(danmaku::get_danmaku_by_video))
     })
-    .scope("/test2", |proj_scope| {
-        proj_scope.resource("", |r| r.get().f(danmaku::index))
+    .scope("/senddanmaku", |proj_scope| {
+        proj_scope.resource("", |r| r.post().f(danmaku::send_danmaku))
     })
 }

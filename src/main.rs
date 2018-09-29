@@ -3,6 +3,16 @@ use env_logger::Target;
 use log::trace;
 use openssl::ssl::{SslAcceptor, SslFiletype, SslMethod};
 
+extern crate actix;
+extern crate bytes;
+extern crate env_logger;
+extern crate futures;
+extern crate serde_json;
+#[macro_use]
+extern crate serde_derive;
+#[macro_use]
+extern crate json;
+
 mod controller;
 mod db;
 
