@@ -1,8 +1,4 @@
-use actix_web::{server, App, HttpRequest};
-use env_logger::Target;
-use log::trace;
-use openssl::ssl::{SslAcceptor, SslFiletype, SslMethod};
-
+#[macro_use]
 extern crate actix;
 extern crate bytes;
 extern crate env_logger;
@@ -13,10 +9,14 @@ extern crate serde_derive;
 #[macro_use]
 extern crate json;
 
+use actix_web::{middleware, server, App, HttpRequest};
+use env_logger::Target;
+use log::trace;
+use openssl::ssl::{SslAcceptor, SslFiletype, SslMethod};
+
 mod controller;
 mod db;
-
-
+mod migrate;
 
 fn index(_req: &HttpRequest) -> &'static str {
     "Hello world!"
@@ -51,13 +51,33 @@ fn main() {
         .set_certificate_chain_file(cert_file)
         .expect("Fail to load cert file");
 
-    server::new(|| {
-        App::new()
-            .resource("/", |r| r.f(index))
-            .configure(controller::danmaku::danmaku)
-            .configure(controller::video::video)
-            .configure(controller::user::user)
-    }).bind_ssl("127.0.0.1:8088", builder)
-    .unwrap()
-    .run();
+    let sys = server::new(move || {
+        vec![
+            App::new()
+                .middleware(middleware::Logger::new("%a %s %r %{User-Agent}i"))
+                .middleware(migrate::SayHi)
+                .configure(controller::danmaku::danmaku)
+                .finish(),
+            App::new()
+                .middleware(middleware::Logger::new("%a %s %r %{User-Agent}i"))
+                .middleware(migrate::SayHi)
+                .configure(controller::user::user)
+                .finish(),
+            App::new()
+                .middleware(middleware::Logger::new("%a %s %r %{User-Agent}i"))
+                .middleware(migrate::SayHi)
+                .configure(controller::video::video)
+                .finish(),
+        ]
+    })
+    .workers(4)
+    .bind_ssl("127.0.0.1:8088", builder)
+    .unwrap();
+
+    println!("started http server: 127.0.0.1:8088");
+    let _ = sys.run();
 }
+
+// fn setup_logger() -> Result<(), fern:::InitError> {
+
+// }

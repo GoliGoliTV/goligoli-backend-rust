@@ -25,7 +25,12 @@ pub fn send_danmaku(_req: &HttpRequest) -> Box<Future<Item = HttpResponse, Error
         .from_err()
         .and_then(|val: DanmakuContent|{
             println!("model:{:?}",val);
+            save_send_danmaku(&val);
             Ok(HttpResponse::Ok().json(val))
         })
         .responder()
+}
+
+fn save_send_danmaku(val:&DanmakuContent) {
+    //连接数据库并存入val
 }
