@@ -22,9 +22,10 @@ env:
   - DOCKER_COMPOSE_VERSION=1.22.0
 
 before_install:
-  - sudo sed -i 's|http://us-east-1.ec2.archive.ubuntu.com|https://mirrors.speedtests.ml|g' /etc/apt/sources.list
-  - sudo sed -i 's|http://security.ubuntu.com|https://mirrors.speedtests.ml|g' /etc/apt/sources.list
-  - sudo sed -i 's|http://us-central1.gce.archive.ubuntu.com|https://mirrors.speedtests.ml|g' /etc/apt/sources.list
+  - sudo sed -i 's|http://us-east-1.ec2.archive.ubuntu.com|http://mirrors.speedtests.ml|g' /etc/apt/sources.list
+  - sudo sed -i 's|http://security.ubuntu.com|http://mirrors.speedtests.ml|g' /etc/apt/sources.list
+  - sudo sed -i 's|http://us-central1.gce.archive.ubuntu.com|http://mirrors.speedtests.ml|g' /etc/apt/sources.list
+  - sudo sed -i 's|http://ppa.launchpad.net|http://launchpad.speedtests.ml|g' /etc/apt/sources.list.d/*.list
   - sudo apt-get update
   - sudo apt-get -yq --no-install-suggests --no-install-recommends install binutils-dev cmake docker-ce gcc libcurl4-openssl-dev libdw-dev libelf-dev libiberty-dev
   - sudo /etc/init.d/postgresql stop
