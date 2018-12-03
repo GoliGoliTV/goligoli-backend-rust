@@ -25,7 +25,8 @@ before_install:
   - sudo sed -i 's|http://us-east-1.ec2.archive.ubuntu.com|https://mirrors.speedtests.ml|g' /etc/apt/sources.list
   - sudo sed -i 's|http://security.ubuntu.com|https://mirrors.speedtests.ml|g' /etc/apt/sources.list
   - sudo sed -i 's|http://us-central1.gce.archive.ubuntu.com|https://mirrors.speedtests.ml|g' /etc/apt/sources.list
-  - sudo -E apt-get -yq --no-install-suggests --no-install-recommends $(travis_apt_get_options) install binutils-dev cmake docker-ce gcc libcurl4-openssl-dev libdw-dev libelf-dev libiberty-dev
+  - sudo apt-get update
+  - sudo apt-get -yq --no-install-suggests --no-install-recommends install binutils-dev cmake docker-ce gcc libcurl4-openssl-dev libdw-dev libelf-dev libiberty-dev
   - sudo /etc/init.d/postgresql stop
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
